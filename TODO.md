@@ -1,0 +1,26 @@
+# ConfeMate - Project TODO List
+
+## Backend & Infrastructure
+
+- [ ] Set up Vertex AI SDK and backend API structure
+- [ ] Design data model for conference sessions (title, description, topics, time, track, speaker)
+- [ ] Create sample conference session data for testing
+
+## Core Chat Features
+
+- [ ] Implement chat UI component with message history
+- [ ] Build chat service using Angular signals for reactive state management
+- [ ] Integrate Vertex AI API for conversational session recommendations
+- [ ] Implement prompt engineering for session matching (interests, experience level, time preferences)
+
+## Session Display & Refinement
+
+- [ ] Create session card/list component to display recommended sessions
+- [ ] Add session filtering and refinement based on conversation context
+
+## Polish & Quality
+
+- [ ] Implement error handling and loading states for API calls
+- [ ] Add conversation reset/restart functionality
+- [ ] Style the chat interface with responsive design
+- [ ] Write unit tests for chat service and components
