@@ -2,16 +2,16 @@
 
 ## Backend & Infrastructure
 
-- [ ] Set up Vertex AI SDK and backend API structure
-- [ ] Design data model for conference sessions (title, description, topics, time, track, speaker)
-- [ ] Create sample conference session data for testing
+- [x] Set up Vertex AI SDK and backend API structure
+- [x] Design data model for conference sessions (title, description, topics, time, track, speaker)
+- [x] Create sample conference session data for testing
 
 ## Core Chat Features
 
 - [ ] Implement chat UI component with message history
 - [ ] Build chat service using Angular signals for reactive state management
-- [ ] Integrate Vertex AI API for conversational session recommendations
-- [ ] Implement prompt engineering for session matching (interests, experience level, time preferences)
+- [x] Integrate Vertex AI API for conversational session recommendations
+- [x] Implement prompt engineering for session matching (interests, experience level, time preferences)
 
 ## Session Display & Refinement
 
