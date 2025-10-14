@@ -1,16 +1,53 @@
 # ConfeMate
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.5.
+An AI-powered conference session recommendation assistant built with Angular 20.3 and Vertex AI. ConfeMate helps attendees discover the perfect sessions based on their interests, experience level, and schedule preferences.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- Real-time chat interface with Vertex AI-powered recommendations
+- Signal-based reactive state management
+- Session recommendations with detailed information
+- Responsive design
+- Auto-scrolling chat history
+
+## Prerequisites
+
+- Node.js (v18 or higher)
+- Angular CLI 20.3.5
+- Google Cloud account with Vertex AI enabled
+
+## Setup
+
+1. Install dependencies:
+```bash
+npm install
+```
+
+2. Configure environment variables for the backend server (see `server/.env.example`)
+
+## Running the Application
+
+### Start Backend Server
+
+First, start the Express backend server:
+
+```bash
+npm run server:dev
+```
+
+The backend server will run on `http://localhost:3000`.
+
+### Start Frontend Development Server
+
+In a separate terminal, start the Angular development server:
 
 ```bash
 ng serve
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+
+The frontend is configured with a proxy that routes `/api/*` requests to the backend server.
 
 ## Code scaffolding
 
