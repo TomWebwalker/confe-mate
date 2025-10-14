@@ -1,0 +1,90 @@
+<div class="chat-container">
+  <div class="chat-header">
+    <h2>ConfeMate Assistant</h2>
+    <p>Ask me about conference sessions and get personalized recommendations!</p>
+    @if (chatService.messages().length > 0) {
+      <button class="clear-button" (click)="onClearChat()">Clear Chat</button>
+    }
+  </div>
+
+  <div class="messages-container">
+    @if (chatService.messages().length === 0) {
+      <div class="welcome-message">
+        <h3>Welcome to ConfeMate!</h3>
+        <p>I'm here to help you find the perfect conference sessions based on your interests, experience level, and schedule preferences.</p>
+        <p>Try asking me something like:</p>
+        <ul>
+          <li>"I'm interested in Angular and have intermediate experience"</li>
+          <li>"What beginner-friendly sessions are available?"</li>
+          <li>"Show me sessions about AI and machine learning"</li>
+        </ul>
+      </div>
+    }
+
+    @for (message of chatService.messages(); track $index) {
+      <div class="message" [class.user-message]="message.role === 'user'" [class.model-message]="message.role === 'model'">
+        <div class="message-role">{{ message.role === 'user' ? 'You' : 'ConfeMate' }}</div>
+        <div class="message-content">{{ message.content }}</div>
+      </div>
+    }
+
+    @if (chatService.isLoading()) {
+      <div class="message model-message loading">
+        <div class="message-role">ConfeMate</div>
+        <div class="message-content">
+          <span class="loading-dots">Thinking</span>
+        </div>
+      </div>
+    }
+
+    @if (chatService.error()) {
+      <div class="error-message">
+        {{ chatService.error() }}
+      </div>
+    }
+
+    <div #messagesEnd></div>
+  </div>
+
+  @if (chatService.recommendations().length > 0) {
+    <div class="recommendations-container">
+      <h3>Recommended Sessions</h3>
+      <div class="sessions-list">
+        @for (session of chatService.recommendations(); track session.id) {
+          <div class="session-card">
+            <h4>{{ session.title }}</h4>
+            <p class="session-speaker">{{ session.speaker }}</p>
+            <p class="session-description">{{ session.description }}</p>
+            <div class="session-meta">
+              <span class="session-level" [class]="'level-' + session.level">{{ session.level }}</span>
+              <span class="session-duration">{{ session.duration }} min</span>
+              <span class="session-track">{{ session.track }}</span>
+            </div>
+            <div class="session-topics">
+              @for (topic of session.topics; track topic) {
+                <span class="topic-tag">{{ topic }}</span>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <div class="input-container">
+    <textarea
+      [(ngModel)]="messageInput"
+      (keypress)="onKeyPress($event)"
+      placeholder="Ask about conference sessions..."
+      [disabled]="chatService.isLoading()"
+      rows="2"
+    ></textarea>
+    <button
+      (click)="onSendMessage()"
+      [disabled]="!messageInput().trim() || chatService.isLoading()"
+      class="send-button"
+    >
+      Send
+    </button>
+  </div>
+</div>
