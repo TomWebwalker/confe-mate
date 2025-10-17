@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, effect, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ChatService } from '../../services/chat.service';
+import { SessionList } from '../session-list/session-list';
 
 @Component({
   selector: 'app-chat',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SessionList],
   templateUrl: './chat.html',
   styleUrl: './chat.css',
 })
