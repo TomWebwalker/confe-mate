@@ -8,8 +8,8 @@
 
 ## Core Chat Features
 
-- [ ] Implement chat UI component with message history
-- [ ] Build chat service using Angular signals for reactive state management
+- [x] Implement chat UI component with message history
+- [x] Build chat service using Angular signals for reactive state management
 - [x] Integrate Vertex AI API for conversational session recommendations
 - [x] Implement prompt engineering for session matching (interests, experience level, time preferences)
 
