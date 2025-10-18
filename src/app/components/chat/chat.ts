@@ -3,10 +3,11 @@ import { Component, effect, ElementRef, inject, signal, viewChild } from '@angul
 import { FormsModule } from '@angular/forms';
 import { ChatService } from '../../services/chat.service';
 import { SessionList } from '../session-list/session-list';
+import { SessionFilters } from '../session-filters/session-filters';
 
 @Component({
   selector: 'app-chat',
-  imports: [CommonModule, FormsModule, SessionList],
+  imports: [CommonModule, FormsModule, SessionList, SessionFilters],
   templateUrl: './chat.html',
   styleUrl: './chat.css',
 })

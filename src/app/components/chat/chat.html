@@ -47,7 +47,8 @@
   </div>
 
   @if (chatService.recommendations().length > 0) {
-    <app-session-list [sessions]="chatService.recommendations()" />
+    <app-session-filters />
+    <app-session-list [sessions]="chatService.filteredRecommendations()" />
   }
 
   <div class="input-container">
