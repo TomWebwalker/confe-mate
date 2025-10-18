@@ -1,0 +1,25 @@
+.recommendations-container {
+  padding: 1.5rem;
+  background: #f3f4f6;
+  border-top: 2px solid #e5e7eb;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.recommendations-container h3 {
+  margin: 0 0 1rem 0;
+  color: #1f2937;
+  font-size: 1.25rem;
+}
+
+.sessions-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .sessions-list {
+    grid-template-columns: 1fr;
+  }
+}

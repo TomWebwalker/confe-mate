@@ -1,0 +1,15 @@
+<div class="session-card">
+  <h4>{{ session().title }}</h4>
+  <p class="session-speaker">{{ session().speaker }}</p>
+  <p class="session-description">{{ session().description }}</p>
+  <div class="session-meta">
+    <span class="session-level" [class]="'level-' + session().level">{{ session().level }}</span>
+    <span class="session-duration">{{ session().duration }} min</span>
+    <span class="session-track">{{ session().track }}</span>
+  </div>
+  <div class="session-topics">
+    @for (topic of session().topics; track topic) {
+      <span class="topic-tag">{{ topic }}</span>
+    }
+  </div>
+</div>
