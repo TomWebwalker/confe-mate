@@ -1,19 +1,27 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { effect, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { ChatMessage, ChatResponse, ConferenceSession } from '../models/chat.model';
+import { ChatFilterService } from './chat-filter.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
   private readonly http = inject(HttpClient);
+  private readonly filterService = inject(ChatFilterService);
   private readonly apiUrl = '/api/chat';
 
   readonly messages = signal<ChatMessage[]>([]);
   readonly isLoading = signal(false);
   readonly error = signal<string | null>(null);
   readonly recommendations = signal<ConferenceSession[]>([]);
+
+  constructor() {
+    effect(() => {
+      this.filterService.setSessions(this.recommendations());
+    });
+  }
 
   async sendMessage(content: string): Promise<void> {
     if (!content.trim()) {
@@ -59,5 +67,6 @@ export class ChatService {
     this.messages.set([]);
     this.recommendations.set([]);
     this.error.set(null);
+    this.filterService.clearFilters();
   }
 }
