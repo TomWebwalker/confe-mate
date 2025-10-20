@@ -1,4 +1,4 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, Injectable, model, signal } from '@angular/core';
 import { ConferenceSession } from '../models/chat.model';
 import { SessionLevel } from '../models/session-level.type';
 
@@ -18,7 +18,7 @@ export class ChatFilterService {
   readonly topics = signal<string[]>([]);
   readonly levels = signal<SessionLevel[]>([]);
   readonly tracks = signal<string[]>([]);
-  readonly searchTerm = signal<string>('');
+  readonly searchTerm = model<string>('');
 
   readonly filteredSessions = computed(() => {
     const sessions = this._sessions();
@@ -84,10 +84,6 @@ export class ChatFilterService {
 
   toggleTrack(track: string): void {
     toggleOnList(this.tracks(), track);
-  }
-
-  setSearchTerm(term: string): void {
-    this.searchTerm.set(term);
   }
 }
 
