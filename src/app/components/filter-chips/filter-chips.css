@@ -1,0 +1,43 @@
+.filter-section {
+  margin-bottom: 1.25rem;
+}
+
+.filter-section:last-of-type {
+  margin-bottom: 0;
+}
+
+.filter-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filter-chip {
+  background-color: white;
+  border: 1px solid #ced4da;
+  color: #495057;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.filter-chip:hover {
+  border-color: #4a90e2;
+  color: #4a90e2;
+}
+
+.filter-chip.active {
+  background-color: #4a90e2;
+  border-color: #4a90e2;
+  color: white;
+}
