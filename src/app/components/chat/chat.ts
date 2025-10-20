@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, effect, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ChatService } from '../../services/chat.service';
+import { ChatFilterService } from '../../services/chat-filter.service';
 import { SessionList } from '../session-list/session-list';
 import { SessionFilters } from '../session-filters/session-filters';
 
@@ -13,6 +14,7 @@ import { SessionFilters } from '../session-filters/session-filters';
 })
 export class Chat {
   protected readonly chatService = inject(ChatService);
+  protected readonly filterService = inject(ChatFilterService);
   protected readonly messageInput = signal('');
   private readonly messagesEnd = viewChild<ElementRef>('messagesEnd');
 
