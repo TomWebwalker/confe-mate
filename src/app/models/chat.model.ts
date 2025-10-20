@@ -1,3 +1,5 @@
+import { SessionLevel } from './session-level.type';
+
 export interface ChatMessage {
   role: 'user' | 'model';
   content: string;
@@ -10,7 +12,7 @@ export interface ConferenceSession {
   topics: string[];
   track: string;
   speaker: string;
-  level: 'beginner' | 'intermediate' | 'advanced';
+  level: SessionLevel;
   duration: number;
   timeSlot: string;
 }

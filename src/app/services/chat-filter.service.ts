@@ -1,9 +1,10 @@
 import { computed, Injectable, signal } from '@angular/core';
 import { ConferenceSession } from '../models/chat.model';
+import { SessionLevel } from '../models/session-level.type';
 
 export interface SessionFilters {
   topics: string[];
-  levels: ('beginner' | 'intermediate' | 'advanced')[];
+  levels: SessionLevel[];
   tracks: string[];
   searchTerm: string;
 }
@@ -15,7 +16,7 @@ export class ChatFilterService {
   private readonly _sessions = signal<ConferenceSession[]>([]);
 
   readonly topics = signal<string[]>([]);
-  readonly levels = signal<('beginner' | 'intermediate' | 'advanced')[]>([]);
+  readonly levels = signal<SessionLevel[]>([]);
   readonly tracks = signal<string[]>([]);
   readonly searchTerm = signal<string>('');
 
@@ -77,7 +78,7 @@ export class ChatFilterService {
     toggleOnList(this.topics(), topic);
   }
 
-  toggleLevel(level: 'beginner' | 'intermediate' | 'advanced'): void {
+  toggleLevel(level: SessionLevel): void {
     toggleOnList(this.levels(), level);
   }
 
@@ -100,7 +101,7 @@ function toggleOnList<T>(list: T[], item: T): void {
 
 function hasActiveFilters(
   topics: string[],
-  levels: ('beginner' | 'intermediate' | 'advanced')[],
+  levels: SessionLevel[],
   tracks: string[],
   searchTerm: string
 ): boolean {
