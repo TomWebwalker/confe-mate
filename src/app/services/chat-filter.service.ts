@@ -1,13 +1,6 @@
-import { computed, Injectable, model, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { ConferenceSession } from '../models/chat.model';
 import { SessionLevel } from '../models/session-level.type';
-
-export interface SessionFilters {
-  topics: string[];
-  levels: SessionLevel[];
-  tracks: string[];
-  searchTerm: string;
-}
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +11,7 @@ export class ChatFilterService {
   readonly topics = signal<string[]>([]);
   readonly levels = signal<SessionLevel[]>([]);
   readonly tracks = signal<string[]>([]);
-  readonly searchTerm = model<string>('');
+  readonly searchTerm = signal<string>('');
 
   readonly filteredSessions = computed(() => {
     const sessions = this._sessions();
@@ -32,36 +25,22 @@ export class ChatFilterService {
     }
 
     return sessions.filter((session) => {
-      const matchesTopic =
-        currentTopics.length === 0 || session.topics.some((topic) => currentTopics.includes(topic));
-
-      const matchesLevel = currentLevels.length === 0 || currentLevels.includes(session.level);
-
-      const matchesTrack = currentTracks.length === 0 || currentTracks.includes(session.track);
-
-      const matchesSearch =
-        !currentSearchTerm ||
-        session.title.toLowerCase().includes(currentSearchTerm.toLowerCase()) ||
-        session.description.toLowerCase().includes(currentSearchTerm.toLowerCase()) ||
-        session.speaker.toLowerCase().includes(currentSearchTerm.toLowerCase());
+      const matchesTopic = existsOnFilledList(currentTopics, session.topics);
+      const matchesLevel = existsOnFilledList(currentLevels, [session.level]);
+      const matchesTrack = existsOnFilledList(currentTracks, [session.track]);
+      const matchesSearch = matchesFilledSearch(session, currentSearchTerm);
 
       return matchesTopic && matchesLevel && matchesTrack && matchesSearch;
     });
   });
 
-  readonly availableTopics = computed(() => {
-    const sessions = this._sessions();
-    const topicsSet = new Set<string>();
-    sessions.forEach((session) => session.topics.forEach((topic) => topicsSet.add(topic)));
-    return Array.from(topicsSet).sort();
-  });
+  readonly availableTopics = computed(() =>
+    setUniqueAndSort(this._sessions().flatMap(({ topics }) => topics))
+  );
 
-  readonly availableTracks = computed(() => {
-    const sessions = this._sessions();
-    const tracksSet = new Set<string>();
-    sessions.forEach((session) => tracksSet.add(session.track));
-    return Array.from(tracksSet).sort();
-  });
+  readonly availableTracks = computed(() =>
+    setUniqueAndSort(this._sessions().map(({ track }) => track))
+  );
 
   setSessions(sessions: ConferenceSession[]): void {
     this._sessions.set(sessions);
@@ -85,6 +64,33 @@ export class ChatFilterService {
   toggleTrack(track: string): void {
     toggleOnList(this.tracks(), track);
   }
+}
+
+function setUniqueAndSort<T>(list: T[]): T[] {
+  const uniqueSet = new Set<T>();
+  list.forEach((item) => uniqueSet.add(item));
+  return Array.from(uniqueSet).sort();
+}
+
+function existsOnFilledList<T>(list: T[], search: T[]): boolean {
+  if (list.length === 0) {
+    return true;
+  }
+  return search.some((item) => list.includes(item));
+}
+
+function matchesFilledSearch(
+  { title, description, speaker }: ConferenceSession,
+  search: string
+): boolean {
+  if (!search) {
+    return true;
+  }
+  return (
+    title.toLowerCase().includes(search.toLowerCase()) ||
+    description.toLowerCase().includes(search.toLowerCase()) ||
+    speaker.toLowerCase().includes(search.toLowerCase())
+  );
 }
 
 function toggleOnList<T>(list: T[], item: T): void {

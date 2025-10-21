@@ -1,0 +1,47 @@
+<div class="filters-container">
+  <div class="filters-header">
+    <h3>Refine Sessions</h3>
+    @if (hasActiveFilters()) {
+      <button class="clear-filters-btn" (click)="onClearFilters()">Clear Filters</button>
+    }
+  </div>
+
+  <div class="filter-section">
+    <label class="filter-label">Search</label>
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Search by title, description, or speaker..."
+      [(ngModel)]="searchTerm"
+    />
+  </div>
+
+  @if (filterService.availableTopics().length > 0) {
+    <app-filter-chips
+      label="Topics"
+      [items]="filterService.availableTopics()"
+      [selectedItems]="filterService.topics()"
+      (toggle)="onToggleTopic($event)"
+    />
+  }
+
+  <app-filter-chips
+    label="Experience Level"
+    [items]="levels"
+    [selectedItems]="filterService.levels()"
+    (toggle)="onToggleLevel($event)"
+  />
+
+  @if (filterService.availableTracks().length > 0) {
+    <app-filter-chips
+      label="Track"
+      [items]="filterService.availableTracks()"
+      [selectedItems]="filterService.tracks()"
+      (toggle)="onToggleTrack($event)"
+    />
+  }
+
+  <div class="results-count">
+    Showing {{ filterService.filteredSessions().length }} sessions
+  </div>
+</div>
