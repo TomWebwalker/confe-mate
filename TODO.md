@@ -22,5 +22,5 @@
 
 - [x] Implement error handling and loading states for API calls
 - [x] Add conversation reset/restart functionality
-- [ ] Style the chat interface with responsive design
+- [x] Style the chat interface with responsive design
 - [ ] Write unit tests for chat service and components

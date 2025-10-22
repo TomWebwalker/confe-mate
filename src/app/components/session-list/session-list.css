@@ -18,8 +18,45 @@
   gap: 1rem;
 }
 
+@media (max-width: 1024px) {
+  .recommendations-container {
+    padding: 1.25rem;
+  }
+
+  .sessions-list {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 0.875rem;
+  }
+}
+
 @media (max-width: 768px) {
+  .recommendations-container {
+    padding: 1rem;
+    max-height: 60vh;
+  }
+
+  .recommendations-container h3 {
+    font-size: 1.125rem;
+    margin-bottom: 0.875rem;
+  }
+
   .sessions-list {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .recommendations-container {
+    padding: 0.75rem;
+  }
+
+  .recommendations-container h3 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .sessions-list {
+    gap: 0.625rem;
   }
 }
