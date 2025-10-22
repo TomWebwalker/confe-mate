@@ -21,6 +21,6 @@
 ## Polish & Quality
 
 - [x] Implement error handling and loading states for API calls
-- [ ] Add conversation reset/restart functionality
+- [x] Add conversation reset/restart functionality
 - [ ] Style the chat interface with responsive design
 - [ ] Write unit tests for chat service and components
