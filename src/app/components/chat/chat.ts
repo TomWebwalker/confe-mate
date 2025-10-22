@@ -44,6 +44,10 @@ export class Chat {
     this.chatService.clearChat();
   }
 
+  onRetry(): void {
+    this.chatService.retryLastMessage();
+  }
+
   private scrollToBottom(): void {
     setTimeout(() => {
       const element = this.messagesEnd()?.nativeElement;

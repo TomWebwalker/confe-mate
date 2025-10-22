@@ -39,7 +39,11 @@
 
     @if (chatService.error()) {
       <div class="error-message">
-        {{ chatService.error() }}
+        <div class="error-icon">⚠️</div>
+        <div class="error-content">
+          <div class="error-text">{{ chatService.error() }}</div>
+          <button class="retry-button" (click)="onRetry()">Retry</button>
+        </div>
       </div>
     }
 

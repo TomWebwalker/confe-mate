@@ -53,14 +53,64 @@ export class ChatService {
 
       this.messages.update(messages => [...messages, modelMessage]);
       this.recommendations.set(response.recommendations);
-    } catch (err) {
-      this.error.set('Failed to send message. Please try again.');
+    } catch (err: any) {
+      const errorMessage = this.getErrorMessage(err);
+      this.error.set(errorMessage);
       console.error('Chat error:', err);
 
       this.messages.update(messages => messages.slice(0, -1));
     } finally {
       this.isLoading.set(false);
     }
+  }
+
+  retryLastMessage(): void {
+    const messages = this.messages();
+    if (messages.length > 0) {
+      const lastUserMessage = [...messages]
+        .reverse()
+        .find(msg => msg.role === 'user');
+
+      if (lastUserMessage) {
+        this.sendMessage(lastUserMessage.content);
+      }
+    }
+  }
+
+  private getErrorMessage(err: any): string {
+    if (!navigator.onLine) {
+      return 'No internet connection. Please check your network and try again.';
+    }
+
+    if (err.status === 0) {
+      return 'Unable to reach the server. Please check your connection.';
+    }
+
+    if (err.status === 400) {
+      return 'Invalid request. Please try rephrasing your message.';
+    }
+
+    if (err.status === 401 || err.status === 403) {
+      return 'Authentication error. Please refresh the page and try again.';
+    }
+
+    if (err.status === 404) {
+      return 'Service not found. Please contact support.';
+    }
+
+    if (err.status === 429) {
+      return 'Too many requests. Please wait a moment and try again.';
+    }
+
+    if (err.status >= 500) {
+      return 'Server error. Please try again in a moment.';
+    }
+
+    if (err.error && err.error.message) {
+      return err.error.message;
+    }
+
+    return 'Failed to send message. Please try again.';
   }
 
   clearChat(): void {
