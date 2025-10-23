@@ -32,9 +32,9 @@ export class VertexAIService {
       location: location,
     });
 
-    // Using Gemini 1.5 Flash with function calling
+    // Using Gemini 2.5 Flash with function calling
     this.model = this.vertexAI.getGenerativeModel({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.5-flash',
     });
   }
 
